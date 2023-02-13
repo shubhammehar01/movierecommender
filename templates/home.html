@@ -1,0 +1,90 @@
+{% extends 'index.html' %}
+{% block title %}Home{% endblock title %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="/favicon.ico"
+    href="https://cdn.digitbin.com/wp-content/uploads/Top-best-Android-Apps-to-watch-and-stream-free-movies-online.jpg">
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+    crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <style>
+    
+    .column img {
+      width: 150px;
+      height: 190px;
+      margin-left: 27px;
+      margin-top: 10px;
+    }
+
+    .column {
+      margin-bottom: 10px;
+      width: 225px;
+      margin-left: 25px;
+
+    }
+
+    .column p {
+      padding: 10px;
+      border-radius: 25px;
+      text-align: center;
+      margin-left: 15px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>Message:</strong> {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+  <div class="container my-5">
+    {% if user.is_authenticated %}
+    <h2>Hello {{fname}}</h2>
+    {% endif %}
+    <h2>Movie Recommeder System</h2>
+    <p>Enter here a movie name</p>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="mb-3">
+        <input list='brow' type="text" class="form-control" id="movie_name" name="movie_name"
+          aria-describedby="textHelp" placeholder="Enter or select a Movie name" required>
+        <datalist id="brow">
+          {% for i in listname %}
+          <option>{{i}}</option>
+          {% endfor %}
+        </datalist>
+
+      </div>
+      <button type="submit" class="btn btn-secondary">Recommed</button>
+    </form>
+    <br>
+    <div class="row">
+      {% for i,j in result.items %}
+      <div class="column">
+        <img src={{j}} alt="Image not found" width="200px" height="400px">
+        <p>{{i}}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+
+</html>
+{% endblock body %}
