@@ -1,1 +1,1 @@
-# movierecommender
+A movie recommender system project is a computer-based application that suggests movies to users based on their preferences, and behavior. The system uses algorithms and machine learning techniques to analyze the data and provide personalized recommendations to users.
